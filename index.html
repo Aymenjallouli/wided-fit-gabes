@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="WIDED FIT — Salle de gym à Ghannouch, Gabès. Musculation, cardio, coaching personnalisé. Notée 5/5 par 52 membres." />
+  <title>WIDED FIT — Salle de Sport à Ghannouch, Gabès</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --color-bg:      #080808;
+      --color-surface: #111111;
+      --color-card:    #1A1A1A;
+      --color-border:  #2A2A2A;
+      --color-brand:   #FF4500;
+      --color-accent:  #FF7A00;
+      --color-text:    #F0EDE8;
+      --color-muted:   #888880;
+      --color-white:   #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Typography ── */
+    .font-display { font-family: 'Bebas Neue', sans-serif; font-display: swap; letter-spacing: 0.04em; }
+
+    h1 { font-size: clamp(3.5rem, 14vw, 9rem); }
+    h2 { font-size: clamp(2.2rem, 6vw, 4rem); }
+    h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.94);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+    .delay-6 { transition-delay: 0.6s; }
+
+    /* ── Nav ── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(8,8,8,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    /* ── Hamburger ── */
+    .hamburger-line {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-text);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-origin: center;
+    }
+    #nav-menu.open .hamburger-line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    #nav-menu.open .hamburger-line:nth-child(2) { opacity: 0; }
+    #nav-menu.open .hamburger-line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: rgba(8,8,8,0.97);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+    #mobile-menu.open { display: flex; }
+
+    /* ── Hero ── */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    #hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://lh3.googleusercontent.com/gps-cs-s/APNQkAElsKL2PUg4yAqxXXS2fn6LoXz98XAhWIlH5Nce4mhRP1-qkGMAsk3G4nwOgvr0_uEhgXXf5lBBjigYfANTofWPPDoUlRJhSIf5pIch8gsgdT8Rau71yWCAdcKmBvDIseeO3ycwmA=w1000-h1000-c-n');
+      background-size: cover;
+      background-position: center top;
+      transform: scale(1.08);
+      transition: transform 12s ease-out;
+    }
+    #hero-bg.loaded { transform: scale(1); }
+    #hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(8,8,8,1) 0%,
+        rgba(8,8,8,0.75) 35%,
+        rgba(8,8,8,0.3) 65%,
+        rgba(8,8,8,0.15) 100%
+      );
+    }
+    #hero-overlay-top {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.6) 0%, transparent 25%);
+    }
+
+    /* ── Brand flash on hero ── */
+    .brand-line {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--color-brand), var(--color-accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Rating badge ── */
+    .rating-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border-radius: 999px;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+    .star-icon { color: #FFB800; }
+
+    /* ── CTA button ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--color-brand), var(--color-accent));
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 1rem 2.2rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      min-height: 52px;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-100%) skewX(-15deg);
+      transition: transform 0.4s ease;
+    }
+    .btn-primary:hover::before { transform: translateX(110%) skewX(-15deg); }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(255,69,0,0.45);
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    /* ── Pulse micro-interaction (gym CTA) ── */
+    @keyframes pulse-ring {
+      0%   { transform: scale(1); opacity: 0.7; }
+      70%  { transform: scale(1.18); opacity: 0; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+    .btn-primary-pulse {
+      position: relative;
+    }
+    .btn-primary-pulse::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 6px;
+      border: 2px solid var(--color-brand);
+      animation: pulse-ring 2.2s ease-out infinite;
+      pointer-events: none;
+    }
+
+    /* ── Section titles ── */
+    .section-overline {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-brand);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── SVG diagonal divider ── */
+    .divider-up {
+      width: 100%;
+      line-height: 0;
+      overflow: hidden;
+    }
+    .divider-up svg { display: block; width: 100%; }
+
+    /* ── Stat counter ── */
+    .stat-card {
+      position: relative;
+      text-align: center;
+      padding: 2rem 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      background: var(--color-card);
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--color-brand), var(--color-accent));
+    }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 4.2rem);
+      line-height: 1;
+      background: linear-gradient(135deg, var(--color-brand), var(--color-accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Service cards ── */
+    .service-card {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.4),
+        0 8px 24px rgba(0,0,0,0.3);
+    }
+    .service-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--color-brand), var(--color-accent));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow:
+        0 4px 8px rgba(0,0,0,0.5),
+        0 16px 40px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(255,69,0,0.2);
+      border-color: rgba(255,69,0,0.3);
+    }
+    .service-card:hover::after { transform: scaleX(1); }
+
+    .service-icon-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      line-height: 1;
+      color: rgba(255,69,0,0.18);
+      position: absolute;
+      bottom: 1rem; right: 1.2rem;
+      user-select: none;
+    }
+
+    /* ── Gallery ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+      gap: 0.5rem;
+    }
+    @media (min-width: 768px) {
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+    }
+    @media (min-width: 1024px) {
+      .gallery-grid { gap: 1rem; }
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      border-radius: 6px;
+      aspect-ratio: 1;
+      position: relative;
+    }
+    .gallery-item.tall { grid-row: span 2; aspect-ratio: unset; }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.4) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    /* ── Hours table ── */
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 0.9rem;
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .day-name { color: var(--color-muted); font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .day-time { font-weight: 600; color: var(--color-text); }
+    .day-time.closed { color: var(--color-muted); }
+
+    /* ── Map wrapper ── */
+    .map-wrapper {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+    }
+    .map-wrapper iframe {
+      display: block;
+      width: 100%; height: 300px;
+      filter: grayscale(1) contrast(1.1) brightness(0.85);
+      border: none;
+    }
+    @media (min-width: 768px) {
+      .map-wrapper iframe { height: 360px; }
+    }
+    .map-tint {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,69,0,0.06);
+      pointer-events: none;
+      border-radius: 8px;
+    }
+
+    /* ── Floating CTA ── */
+    #floating-cta {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.25rem;
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(16px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    #floating-cta.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .float-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.75rem 1.1rem;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      min-height: 48px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
+    }
+    .float-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.6); }
+    .float-btn-call {
+      background: linear-gradient(135deg, var(--color-brand), var(--color-accent));
+      color: #fff;
+    }
+    .float-btn-wa {
+      background: #25D366;
+      color: #fff;
+    }
+
+    /* ── Wave dividers ── */
+    .wave-section { position: relative; }
+
+    /* ── About accent bar ── */
+    .accent-bar {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--color-brand), var(--color-accent));
+      border-radius: 2px;
+    }
+
+    /* ── Scroll progress indicator ── */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--color-brand), var(--color-accent));
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    @media (max-width: 374px) {
+      h1 { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Scroll progress bar -->
+<div id="scroll-progress" aria-hidden="true"></div>
+
+<!-- ═══════════════════════════════════════════ NAV ═══ -->
+<nav id="navbar" role="navigation" aria-label="Navigation principale">
+  <div class="max-w-6xl mx-auto px-5 flex items-center justify-between h-16">
+    <!-- Logo -->
+    <a href="#hero" class="font-display text-2xl tracking-widest" style="color:var(--color-text);">
+      WIDED<span class="brand-line">FIT</span>
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="hidden md:flex items-center gap-8 text-sm font-medium" style="color:var(--color-muted); letter-spacing:0.08em; text-transform:uppercase;">
+      <li><a href="#about" class="hover:text-white transition-colors duration-200">À propos</a></li>
+      <li><a href="#services" class="hover:text-white transition-colors duration-200">Prestations</a></li>
+      <li><a href="#gallery" class="hover:text-white transition-colors duration-200">Galerie</a></li>
+      <li><a href="#contact" class="hover:text-white transition-colors duration-200">Contact</a></li>
+    </ul>
+
+    <!-- Desktop CTA -->
+    <a href="tel:+21654561403" class="hidden md:inline-flex btn-primary" aria-label="Appeler WIDED FIT">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      Appeler
+    </a>
+
+    <!-- Hamburger -->
+    <button
+      id="nav-menu"
+      aria-label="Ouvrir le menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      class="md:hidden flex flex-col gap-1.5 p-2 focus:outline-none"
+    >
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile full-screen menu -->
+<div id="mobile-menu" role="dialog" aria-label="Menu mobile" aria-modal="true">
+  <ul class="flex flex-col items-center gap-6 text-center">
+    <li>
+      <a href="#about" class="font-display text-5xl" style="color:var(--color-text);" onclick="closeMenu()">À PROPOS</a>
+    </li>
+    <li>
+      <a href="#services" class="font-display text-5xl" style="color:var(--color-text);" onclick="closeMenu()">PRESTATIONS</a>
+    </li>
+    <li>
+      <a href="#gallery" class="font-display text-5xl" style="color:var(--color-text);" onclick="closeMenu()">GALERIE</a>
+    </li>
+    <li>
+      <a href="#contact" class="font-display text-5xl" style="color:var(--color-text);" onclick="closeMenu()">CONTACT</a>
+    </li>
+  </ul>
+  <a href="tel:+21654561403" class="btn-primary btn-primary-pulse mt-8" onclick="closeMenu()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+    Appeler maintenant
+  </a>
+</div>
+
+<!-- ═══════════════════════════════════════════ HERO ═══ -->
+<section id="hero" aria-label="Présentation WIDED FIT">
+  <div id="hero-bg" role="img" aria-label="Salle de sport WIDED FIT"></div>
+  <div id="hero-overlay" aria-hidden="true"></div>
+  <div id="hero-overlay-top" aria-hidden="true"></div>
+
+  <div class="relative z-10 w-full max-w-6xl mx-auto px-5 pb-16 pt-24">
+    <div class="rating-badge mb-5 reveal">
+      <span class="star-icon" aria-hidden="true">★</span>
+      <span>5,0 &nbsp;·&nbsp; 52 avis Google</span>
+    </div>
+
+    <h1 class="font-display leading-none mb-4 reveal delay-1">
+      WIDED<br><span class="brand-line">FIT</span>
+    </h1>
+
+    <p class="reveal delay-2 mb-8 max-w-sm" style="font-size:clamp(1rem,2.5vw,1.2rem); color:rgba(240,237,232,0.78); font-weight:300; line-height:1.5;">
+      Forge ton corps. Forge ton destin.
+    </p>
+
+    <div class="flex flex-wrap gap-3 reveal delay-3">
+      <a href="tel:+21654561403" class="btn-primary btn-primary-pulse" aria-label="Appeler WIDED FIT">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        Rejoindre la salle
+      </a>
+      <a href="https://wa.me/21654561403" target="_blank" rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 px-6 rounded"
+        style="background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.18); color:var(--color-text); font-weight:600; font-size:0.92rem; letter-spacing:0.05em; text-transform:uppercase; min-height:52px; text-decoration:none; transition:background 0.2s ease;"
+        aria-label="Contacter WIDED FIT sur WhatsApp"
+        onmouseover="this.style.background='rgba(255,255,255,0.12)'"
+        onmouseout="this.style.background='rgba(255,255,255,0.07)'"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.118 1.522 5.854L.055 23.35a.5.5 0 00.596.596l5.497-1.467A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.938 0-3.752-.494-5.33-1.36l-.383-.217-3.965 1.059 1.059-3.966-.217-.382A9.957 9.957 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="mt-14 reveal delay-4 flex items-center gap-3" aria-hidden="true">
+      <div style="width:1px; height:48px; background:linear-gradient(to bottom, transparent, rgba(255,69,0,0.6));"></div>
+      <span style="font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--color-muted);">Découvrir</span>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider hero → about -->
+<div class="divider-up" aria-hidden="true" style="background:var(--color-bg); margin-top:-2px;">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="height:60px;">
+    <path d="M0,60 L0,30 Q180,0 360,30 Q540,60 720,30 Q900,0 1080,30 Q1260,60 1440,30 L1440,60 Z" fill="#080808"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════ ABOUT ═══ -->
+<section id="about" class="py-20 px-5" style="background:var(--color-surface);">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <!-- Text -->
+      <div>
+        <span class="section-overline reveal">Notre ADN</span>
+        <h2 class="font-display mb-5 reveal delay-1" style="color:var(--color-text); line-height:1.05;">
+          UNE SALLE,<br>UN ÉTAT D'ESPRIT
+        </h2>
+        <div class="accent-bar mb-6 reveal delay-1"></div>
+        <p class="reveal delay-2 mb-4" style="color:rgba(240,237,232,0.72); line-height:1.8; font-size:1rem; font-weight:300;">
+          WIDED FIT est bien plus qu'une salle de musculation — c'est un espace de transformation où chaque membre bâtit sa meilleure version. Implantée au cœur de Ghannouch, notre salle réunit une communauté passionnée sous la direction de coachs investis.
+        </p>
+        <p class="reveal delay-3 mb-8" style="color:rgba(240,237,232,0.55); line-height:1.8; font-size:0.9rem;">
+          Équipements de pointe, ambiance motivante et suivi personnalisé : tout ce qu'il faut pour atteindre vos objectifs, 7 jours sur 7.
+        </p>
+        <a href="#contact" class="btn-primary reveal delay-3" style="align-self:flex-start;">
+          Nous rejoindre
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="stat-card reveal delay-1">
+          <div class="stat-num" data-target="52" data-suffix="">0</div>
+          <p class="mt-1 text-xs uppercase tracking-widest" style="color:var(--color-muted);">Avis vérifiés</p>
+        </div>
+        <div class="stat-card reveal delay-2">
+          <div class="stat-num" data-target="5" data-suffix=".0">0</div>
+          <p class="mt-1 text-xs uppercase tracking-widest" style="color:var(--color-muted);">Note parfaite</p>
+        </div>
+        <div class="stat-card reveal delay-3">
+          <div class="stat-num" data-target="13" data-suffix="h">0</div>
+          <p class="mt-1 text-xs uppercase tracking-widest" style="color:var(--color-muted);">D'ouverture/jour</p>
+        </div>
+        <div class="stat-card reveal delay-4">
+          <div class="stat-num" data-target="7" data-suffix="j/7">0</div>
+          <p class="mt-1 text-xs uppercase tracking-widest" style="color:var(--color-muted);">Disponible</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Diagonal cut divider -->
+<div aria-hidden="true" style="height:60px; background:var(--color-bg); clip-path:polygon(0 0, 100% 60px, 100% 60px, 0 60px); margin-top:-1px;"></div>
+<div aria-hidden="true" style="height:60px; background:var(--color-surface); clip-path:polygon(0 0, 100% 0, 100% 60px, 0 0); margin-top:-60px;"></div>
+
+<!-- ═══════════════════════════════════════════ SERVICES ═══ -->
+<section id="services" class="py-20 px-5" style="background:var(--color-bg);">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="section-overline reveal">Ce qu'on propose</span>
+      <h2 class="font-display reveal delay-1" style="color:var(--color-text); line-height:1.05;">
+        NOS <span class="brand-line">PRESTATIONS</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <!-- Card 1 -->
+      <article class="service-card reveal delay-1" aria-label="Musculation">
+        <div class="mb-4">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 5v14M18 5v14M3 8h3M18 8h3M3 16h3M18 16h3"/>
+          </svg>
+        </div>
+        <h3 class="font-display mb-2" style="color:var(--color-text); font-size:1.6rem;">MUSCULATION</h3>
+        <p style="color:var(--color-muted); font-size:0.88rem; line-height:1.7;">Machines professionnelles, barres olympiques et haltères pour sculpter chaque groupe musculaire avec précision.</p>
+        <span class="service-icon-num" aria-hidden="true">01</span>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="service-card reveal delay-2" aria-label="Cardio Training">
+        <div class="mb-4">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <h3 class="font-display mb-2" style="color:var(--color-text); font-size:1.6rem;">CARDIO TRAINING</h3>
+        <p style="color:var(--color-muted); font-size:0.88rem; line-height:1.7;">Tapis de course, vélos, rameurs et elliptiques haute performance pour brûler les calories et renforcer l'endurance.</p>
+        <span class="service-icon-num" aria-hidden="true">02</span>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="service-card reveal delay-3" aria-label="Coaching Personnalisé">
+        <div class="mb-4">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+        </div>
+        <h3 class="font-display mb-2" style="color:var(--color-text); font-size:1.6rem;">COACHING PERSO</h3>
+        <p style="color:var(--color-muted); font-size:0.88rem; line-height:1.7;">Un coach dédié élabore votre programme sur-mesure et vous guide à chaque séance vers l'atteinte de vos objectifs.</p>
+        <span class="service-icon-num" aria-hidden="true">03</span>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="service-card reveal delay-2" aria-label="Cours Collectifs">
+        <div class="mb-4">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="9" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><path d="M2 20c0-3.3 3.1-6 7-6 .7 0 1.4.1 2 .3M14 20c0-3.3 3.1-6 7-6"/>
+          </svg>
+        </div>
+        <h3 class="font-display mb-2" style="color:var(--color-text); font-size:1.6rem;">COURS COLLECTIFS</h3>
+        <p style="color:var(--color-muted); font-size:0.88rem; line-height:1.7;">Zumba, HIIT, circuit training et aérobic en groupe — l'énergie collective pour dépasser vos limites.</p>
+        <span class="service-icon-num" aria-hidden="true">04</span>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="service-card reveal delay-3" aria-label="Programme Minceur">
+        <div class="mb-4">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <h3 class="font-display mb-2" style="color:var(--color-text); font-size:1.6rem;">PROGRAMME MINCEUR</h3>
+        <p style="color:var(--color-muted); font-size:0.88rem; line-height:1.7;">Suivi nutritionnel et plan d'entraînement combinés pour une perte de poids durable et efficace.</p>
+        <span class="service-icon-num" aria-hidden="true">05</span>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="service-card reveal delay-4" aria-label="Stretching et Récupération">
+        <div class="mb-4">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1-5.5h-2V7h2v4z"/>
+          </svg>
+        </div>
+        <h3 class="font-display mb-2" style="color:var(--color-text); font-size:1.6rem;">STRETCHING & RÉCUP</h3>
+        <p style="color:var(--color-muted); font-size:0.88rem; line-height:1.7;">Séances dédiées à la mobilité, la souplesse et la récupération active — essentielles pour progresser sans blessure.</p>
+        <span class="service-icon-num" aria-hidden="true">06</span>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- SVG Wave divider -->
+<div aria-hidden="true" style="background:var(--color-surface); line-height:0; overflow:hidden;">
+  <svg viewBox="0 0 1440 72" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block; width:100%; height:72px;">
+    <path d="M0,0 Q360,72 720,36 Q1080,0 1440,72 L1440,0 Z" fill="#080808"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════ GALLERY ═══ -->
+<section id="gallery" class="py-20 px-5" style="background:var(--color-surface);">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="section-overline reveal">L'atmosphère</span>
+      <h2 class="font-display reveal delay-1" style="color:var(--color-text);">
+        LA <span class="brand-line">SALLE</span>
+      </h2>
+    </div>
+
+    <div class="gallery-grid">
+
+      <div class="gallery-item tall reveal delay-1" style="grid-row:span 2;">
+        <img
+          src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAElsKL2PUg4yAqxXXS2fn6LoXz98XAhWIlH5Nce4mhRP1-qkGMAsk3G4nwOgvr0_uEhgXXf5lBBjigYfANTofWPPDoUlRJhSIf5pIch8gsgdT8Rau71yWCAdcKmBvDIseeO3ycwmA=w1000-h1000-c-n"
+          alt="Salle de sport WIDED FIT Ghannouch"
+          loading="lazy"
+          style="width:100%; height:100%; object-fit:cover;"
+        />
+        <div class="gallery-overlay"></div>
+      </div>
+
+      <div class="gallery-item reveal delay-2">
+        <img
+          src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80"
+          alt="Salle de musculation — appareils"
+          loading="lazy"
+        />
+        <div class="gallery-overlay"></div>
+      </div>
+
+      <div class="gallery-item reveal delay-3">
+        <img
+          src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80"
+          alt="Entraînement en salle de gym"
+          loading="lazy"
+        />
+        <div class="gallery-overlay"></div>
+      </div>
+
+      <div class="gallery-item reveal delay-2">
+        <img
+          src="https://images.unsplash.com/photo-1576678927484-cc907957088c?w=800&q=80"
+          alt="Équipements fitness professionnels"
+          loading="lazy"
+        />
+        <div class="gallery-overlay"></div>
+      </div>
+
+      <div class="gallery-item reveal delay-4">
+        <img
+          src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?w=800&q=80"
+          alt="Séance de cardio training"
+          loading="lazy"
+        />
+        <div class="gallery-overlay"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SVG wave divider -->
+<div aria-hidden="true" style="background:var(--color-bg); line-height:0; overflow:hidden;">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block; width:100%; height:60px;">
+    <path d="M0,60 L0,20 Q360,60 720,20 Q1080,-20 1440,20 L1440,60 Z" fill="var(--color-surface)"/>
+  </svg>
+</div>
+
+<!-- ═══════════════════════════════════════════ CONTACT ═══ -->
+<section id="contact" class="py-20 px-5" style="background:var(--color-bg);">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <span class="section-overline reveal">Venir nous voir</span>
+      <h2 class="font-display reveal delay-1" style="color:var(--color-text);">
+        NOUS <span class="brand-line">TROUVER</span>
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-10">
+
+      <!-- Info + Hours -->
+      <div>
+        <!-- Address & phone -->
+        <div class="reveal delay-1 mb-8 p-6 rounded-lg" style="background:var(--color-card); border:1px solid var(--color-border);">
+          <h3 class="font-display mb-4" style="color:var(--color-text); font-size:1.4rem; letter-spacing:0.05em;">INFORMATIONS</h3>
+
+          <div class="flex items-start gap-3 mb-4">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0; margin-top:2px;">
+              <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <div>
+              <p style="color:rgba(240,237,232,0.6); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:2px;">Adresse</p>
+              <a
+                href="https://www.google.com/maps/place/?q=place_id:ChIJj0PVJbZ7VRIR4CSQT7otj9M"
+                target="_blank" rel="noopener noreferrer"
+                style="color:var(--color-text); font-size:0.95rem; text-decoration:none;"
+                onmouseover="this.style.color='var(--color-brand)'"
+                onmouseout="this.style.color='var(--color-text)'"
+                aria-label="Voir l'adresse sur Google Maps"
+              >
+                Ghannouch, Gabès, Tunisie
+              </a>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0; margin-top:2px;">
+              <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+            </svg>
+            <div>
+              <p style="color:rgba(240,237,232,0.6); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:2px;">Téléphone</p>
+              <a href="tel:+21654561403" style="color:var(--color-text); font-size:0.95rem; text-decoration:none; font-weight:600;"
+                onmouseover="this.style.color='var(--color-brand)'"
+                onmouseout="this.style.color='var(--color-text)'"
+              >+216 54 561 403</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hours -->
+        <div class="reveal delay-2 p-6 rounded-lg" style="background:var(--color-card); border:1px solid var(--color-border);">
+          <h3 class="font-display mb-4" style="color:var(--color-text); font-size:1.4rem; letter-spacing:0.05em;">HORAIRES</h3>
+          <div role="table" aria-label="Horaires d'ouverture">
+            <div class="hours-row" role="row">
+              <span class="day-name" role="cell">Lundi — Vendredi</span>
+              <span class="day-time" role="cell">09:00 – 22:00</span>
+            </div>
+            <div class="hours-row" role="row">
+              <span class="day-name" role="cell">Samedi</span>
+              <span class="day-time" role="cell">09:00 – 22:00</span>
+            </div>
+            <div class="hours-row" role="row">
+              <span class="day-name" role="cell">Dimanche</span>
+              <span class="day-time" role="cell">10:00 – 13:00</span>
+            </div>
+          </div>
+          <div class="mt-4 flex items-center gap-2">
+            <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#22c55e; animation:pulse-ring 2s infinite;"></span>
+            <span style="color:#22c55e; font-size:0.8rem; font-weight:600;">Ouvert aujourd'hui</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="reveal delay-3">
+        <div class="map-wrapper">
+          <iframe
+            src="https://maps.google.com/maps?q=Ghannouch,+Gabes,+Tunisie&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            title="Carte WIDED FIT — Ghannouch, Gabès"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <div class="map-tint" aria-hidden="true"></div>
+        </div>
+        <div class="mt-5 flex gap-3 flex-wrap">
+          <a
+            href="https://www.google.com/maps/place/?q=place_id:ChIJj0PVJbZ7VRIR4CSQT7otj9M"
+            target="_blank" rel="noopener noreferrer"
+            class="btn-primary"
+            aria-label="Obtenir l'itinéraire vers WIDED FIT"
+            style="font-size:0.82rem; padding:0.75rem 1.4rem;"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.71 11.29l-9-9a1 1 0 00-1.42 0l-9 9a1 1 0 000 1.42l9 9a1 1 0 001.42 0l9-9a1 1 0 000-1.42zM14 14.5V12h-4v3H8v-4a1 1 0 011-1h5V7.5l3.5 3.5-3.5 3.5z"/></svg>
+            Obtenir l'itinéraire
+          </a>
+          <a
+            href="https://wa.me/21654561403"
+            target="_blank" rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 rounded"
+            style="background:#25D366; color:#fff; font-weight:700; font-size:0.82rem; letter-spacing:0.05em; text-transform:uppercase; min-height:44px; text-decoration:none;"
+            aria-label="Envoyer un WhatsApp à WIDED FIT"
+          >
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ FOOTER ═══ -->
+<footer style="background:var(--color-surface); border-top:1px solid var(--color-border); padding:3rem 1.25rem 2rem;">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-8 mb-8">
+
+      <div>
+        <div class="font-display text-3xl tracking-widest mb-2" style="color:var(--color-text);">
+          WIDED<span class="brand-line">FIT</span>
+        </div>
+        <p style="color:var(--color-muted); font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase;">
+          Forge ton corps. Forge ton destin.
+        </p>
+      </div>
+
+      <nav aria-label="Liens du pied de page">
+        <ul class="flex flex-wrap justify-center md:justify-end gap-6 text-sm" style="color:var(--color-muted);">
+          <li><a href="#about" style="text-decoration:none; color:inherit;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-muted)'">À propos</a></li>
+          <li><a href="#services" style="text-decoration:none; color:inherit;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-muted)'">Prestations</a></li>
+          <li><a href="#gallery" style="text-decoration:none; color:inherit;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-muted)'">Galerie</a></li>
+          <li><a href="#contact" style="text-decoration:none; color:inherit;" onmouseover="this.style.color='var(--color-text)'" onmouseout="this.style.color='var(--color-muted)'">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div style="border-top:1px solid var(--color-border); padding-top:1.5rem; display:flex; flex-direction:column; align-items:center; gap:0.5rem;">
+      <p style="color:var(--color-muted); font-size:0.78rem; text-align:center;">
+        &copy; 2025 WIDED FIT — Ghannouch, Gabès, Tunisie &nbsp;·&nbsp;
+        <a href="tel:+21654561403" style="color:var(--color-muted); text-decoration:none;" onmouseover="this.style.color='var(--color-brand)'" onmouseout="this.style.color='var(--color-muted)'">+216 54 561 403</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════ FLOATING CTA ═══ -->
+<div id="floating-cta" aria-label="Actions rapides">
+  <a href="tel:+21654561403" class="float-btn float-btn-call" aria-label="Appeler WIDED FIT">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+    Appeler
+  </a>
+  <a href="https://wa.me/21654561403" target="_blank" rel="noopener noreferrer" class="float-btn float-btn-wa" aria-label="Contacter WIDED FIT sur WhatsApp">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.118 1.522 5.854L.055 23.35a.5.5 0 00.596.596l5.497-1.467A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.938 0-3.752-.494-5.33-1.36l-.383-.217-3.965 1.059 1.059-3.966-.217-.382A9.957 9.957 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp
+  </a>
+</div>
+
+<!-- ═══════════════════════════════════════════ JS ═══ -->
+<script>
+  // ── Hamburger menu ──
+  const navMenu = document.getElementById('nav-menu');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  function openMenu() {
+    navMenu.classList.add('open');
+    mobileMenu.classList.add('open');
+    navMenu.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    navMenu.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    navMenu.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  navMenu.addEventListener('click', () => {
+    if (mobileMenu.classList.contains('open')) closeMenu();
+    else openMenu();
+  });
+
+  mobileMenu.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  // ── Navbar scroll effect ──
+  const navbar = document.getElementById('navbar');
+  const scrollProgress = document.getElementById('scroll-progress');
+
+  function onScroll() {
+    const scrollY = window.scrollY;
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+
+    // Frosted glass
+    if (scrollY > 60) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+
+    // Scroll progress
+    scrollProgress.style.width = (scrollY / docH * 100) + '%';
+
+    // Floating CTA
+    const heroH = document.getElementById('hero').offsetHeight;
+    const floatingCTA = document.getElementById('floating-cta');
+    if (scrollY > heroH * 0.7) floatingCTA.classList.add('visible');
+    else floatingCTA.classList.remove('visible');
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // ── Hero parallax/scale on load ──
+  const heroBg = document.getElementById('hero-bg');
+  window.addEventListener('load', () => {
+    heroBg.classList.add('loaded');
+  });
+  // Trigger immediately if already loaded
+  if (document.readyState === 'complete') heroBg.classList.add('loaded');
+
+  // ── IntersectionObserver scroll reveal ──
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  );
+
+  document.querySelectorAll('.reveal, .reveal-scale').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // ── Count-up animation (gym micro-interaction) ──
+  function countUp(el) {
+    const target = parseFloat(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1600;
+    const startTime = performance.now();
+    const isDecimal = target !== Math.floor(target);
+
+    function update(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = target * eased;
+
+      if (isDecimal) {
+        el.textContent = current.toFixed(1) + suffix;
+      } else {
+        el.textContent = Math.round(current) + suffix;
+      }
+
+      if (progress < 1) requestAnimationFrame(update);
+      else el.textContent = (isDecimal ? target.toFixed(1) : target) + suffix;
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  // Observe stat numbers
+  const statObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          countUp(entry.target);
+          statObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  document.querySelectorAll('.stat-num[data-target]').forEach(el => {
+    statObserver.observe(el);
+  });
+
+  // ── Close mobile menu on resize to desktop ──
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) closeMenu();
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "place_id": "ChIJj0PVJbZ7VRIR4CSQT7otj9M",
+  "name": "WIDED FIT",
+  "category": "Salle de gym",
+  "city": "gabes",
+  "address": "Ghannouch, Tunisie",
+  "phone": "+216 54 561 403",
+  "whatsapp": "21654561403",
+  "rating": 5,
+  "reviews_count": 52,
+  "hours": "vendredi: 09:00–22:00 · samedi: 09:00–22:00 · dimanche: 10:00–13:00 · lundi: 09:00–22:00 · mardi: 09:00–22:00 · mercredi: 09:00–22:00 · jeudi: 09:00–22:00",
+  "has_website": false,
+  "description": "",
+  "services": [],
+  "photos": [
+    "https://lh3.googleusercontent.com/gps-cs-s/APNQkAElsKL2PUg4yAqxXXS2fn6LoXz98XAhWIlH5Nce4mhRP1-qkGMAsk3G4nwOgvr0_uEhgXXf5lBBjigYfANTofWPPDoUlRJhSIf5pIch8gsgdT8Rau71yWCAdcKmBvDIseeO3ycwmA=w1000-h1000-c-n"
+  ],
+  "reviews": [],
+  "maps_query": "Ghannouch, Tunisie",
+  "maps_uri": "https://www.google.com/maps/place/?q=place_id:ChIJj0PVJbZ7VRIR4CSQT7otj9M",
+  "_score": 260
+}
