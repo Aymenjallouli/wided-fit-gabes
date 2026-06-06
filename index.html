@@ -42,9 +42,10 @@
     /* ── Typography ── */
     .font-display { font-family: 'Bebas Neue', sans-serif; font-display: swap; letter-spacing: 0.04em; }
 
-    h1 { font-size: clamp(4rem, 22vw, 16rem); }
+    h1 { font-size: 20vw; line-height: 0.88; }
     h2 { font-size: clamp(2.2rem, 6vw, 4rem); }
     h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+    @media (max-width: 600px) { h1 { font-size: 28vw; } }
 
     /* ── Scroll reveal ── */
     .reveal {
@@ -455,9 +456,6 @@
       transition: width 0.1s linear;
     }
 
-    @media (max-width: 480px) {
-      h1 { font-size: 5.5rem; }
-    }
   </style>
 </head>
 <body>
@@ -539,12 +537,18 @@
     </div>
 
     <!-- GIANT title -->
-    <h1 class="font-display leading-none reveal delay-1" style="margin-bottom:0.1em; width:100%;">
-      WIDED
-    </h1>
-    <h1 class="font-display leading-none reveal delay-1" style="margin-bottom:0.3em; width:100%;">
-      <span class="brand-line">FIT</span>
-    </h1>
+    <div class="font-display reveal delay-1" style="
+      font-size: 20vw;
+      line-height: 0.88;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.25em;
+      width: 100%;
+      text-align: center;
+      color: var(--color-text);
+    ">
+      <div>WIDED</div>
+      <div style="background:linear-gradient(90deg,var(--color-brand),var(--color-accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">FIT</div>
+    </div>
 
     <!-- Tagline -->
     <p class="reveal delay-2 mb-10" style="font-size:clamp(1.1rem,2.5vw,1.5rem); color:rgba(240,237,232,0.78); font-weight:300; line-height:1.5; letter-spacing:0.05em; max-width:520px;">
