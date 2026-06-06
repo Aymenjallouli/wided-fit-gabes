@@ -47,6 +47,31 @@
     h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
     @media (max-width: 600px) { h1 { font-size: 28vw; } }
 
+    /* ── Hero title styles ── */
+    .hero-word-outline {
+      display: block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22vw;
+      line-height: 0.85;
+      letter-spacing: 0.03em;
+      color: transparent;
+      -webkit-text-stroke: 3px rgba(240,237,232,0.85);
+      user-select: none;
+    }
+    .hero-word-filled {
+      display: block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22vw;
+      line-height: 0.85;
+      letter-spacing: 0.03em;
+      color: var(--color-brand);
+      text-shadow: 0 0 80px rgba(255,69,0,0.5), 0 4px 32px rgba(255,69,0,0.35);
+      user-select: none;
+    }
+    @media (max-width: 600px) {
+      .hero-word-outline, .hero-word-filled { font-size: 30vw; -webkit-text-stroke: 2px rgba(240,237,232,0.85); }
+    }
+
     /* ── Scroll reveal ── */
     .reveal {
       opacity: 0;
@@ -537,17 +562,9 @@
     </div>
 
     <!-- GIANT title -->
-    <div class="font-display reveal delay-1" style="
-      font-size: 20vw;
-      line-height: 0.88;
-      letter-spacing: 0.02em;
-      margin-bottom: 0.25em;
-      width: 100%;
-      text-align: center;
-      color: var(--color-text);
-    ">
-      <div>WIDED</div>
-      <div style="background:linear-gradient(90deg,var(--color-brand),var(--color-accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">FIT</div>
+    <div class="reveal delay-1" style="margin-bottom: 0.2em; width: 100%; text-align: center;">
+      <span class="hero-word-outline">WIDED</span>
+      <span class="hero-word-filled">FIT</span>
     </div>
 
     <!-- Tagline -->
